@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пригласительное на Кыз Узатуу</title>
+    <!-- Tailwind CSS -->
+    <script src="https://tailwindcss.com"></script>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #FAF6F0; color: #5A504A; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .envelope-wrapper { position: relative; width: 320px; height: 180px; cursor: pointer; perspective: 1000px; }
+        .envelope { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; box-shadow: 0 10px 30px rgba(224, 196, 185, 0.3); }
+        .flap { position: absolute; top: 0; left: 0; width: 0; height: 0; border-left: 160px solid transparent; border-right: 160px solid transparent; border-top: 105px solid #EAC4B9; transform-origin: top; transition: transform 0.5s ease, z-index 0.2s ease 0.2s; z-index: 4; }
+        .pocket { position: absolute; bottom: 0; left: 0; width: 0; height: 0; border-left: 160px solid #F3D2C9; border-right: 160px solid #F3D2C9; border-bottom: 100px solid #EDC9C0; z-index: 3; }
+        .stamp-seal { position: absolute; top: 50%; left: 50%; width: 44px; height: 44px; background: radial-gradient(circle, #DCC08A 0%, #C4A467 100%); border-radius: 50%; transform: translate(-50%, -45%); box-shadow: 0 4px 10px rgba(0,0,0,0.15), inset 0 2px 4px rgba(255,255,255,0.2); z-index: 5; transition: transform 0.4s ease, opacity 0.3s ease; }
+        .letter { position: absolute; bottom: 5px; left: 15px; width: 290px; height: 160px; background-color: #ffffff; border-radius: 2px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: transform 0.5s ease 0.3s; z-index: 2; }
+        .envelope-wrapper.open .flap { transform: rotateX(180deg); z-index: 1; }
+        .envelope-wrapper.open .stamp-seal { transform: translate(-50%, -45%) scale(0.8); opacity: 0; pointer-events: none; }
+        .envelope-wrapper.open .letter { transform: translateY(-90px); z-index: 4; }
+    </style>
+</head>
+<body class="bg-[#FAF6F0] min-h-screen overflow-hidden relative m-0 p-0">
+
+    <canvas id="sakura" class="absolute inset-0 pointer-events-none z-50"></canvas>
+
+    <!-- ЭКРАН 1 -->
+    <div id="lang-screen" class="flex flex-col items-center justify-center min-h-screen absolute inset-0 z-40 bg-[#FAF6F0] transition-opacity duration-500">
+        <div class="text-[#D4AF37] opacity-60 text-xl mb-4">🌸 ─── 💮 ─── 🌸</div>
+        <h1 class="font-serif italic text-xl text-[#7A6E67] mb-8 tracking-wide">Тил · Язык · Language</h1>
+        <div class="flex flex-col gap-4 w-full max-w-xs px-4">
+            <button onclick="selectLang('kg')" class="py-3 bg-white border border-[#E6DFD5] text-[#5A504A] rounded-sm hover:border-[#D4AF37] transition-all">Кыргызча</button>
+            <button onclick="selectLang('ru')" class="py-3 bg-white border border-[#E6DFD5] text-[#5A504A] rounded-sm hover:border-[#D4AF37] transition-all">Русский</button>
+            <button onclick="selectLang('en')" class="py-3 bg-white border border-[#E6DFD5] text-[#5A504A] rounded-sm hover:border-[#D4AF37] transition-all">English</button>
+        </div>
+    </div>
+
+    <!-- ЭКРАН 2 -->
+    <div id="envelope-screen" class="hidden flex flex-col items-center justify-center min-h-screen absolute inset-0 z-30 bg-[#FAF6F0] opacity-0 transition-opacity duration-500">
+        <div class="envelope-wrapper" onclick="openEnvelope()">
+            <div class="envelope">
+                <div class="flap"></div>
+                <div class="pocket"></div>
+                <div class="stamp-seal flex items-center justify-center">
+                    <span class="text-[9px] text-[#FAF6F0] tracking-wider font-serif italic" id="seal-name">Аяна</span>
+                </div>
+                <div class="letter"></div>
+            </div>
+        </div>
+        <p class="mt-8 text-xs italic tracking-widest text-[#C2B7AE] font-serif" id="click-tip">нажмите, чтобы открыть</p>
+    </div>
+    <!-- ЭКРАН 3: ПРИГЛАСИТЕЛЬНОЕ -->
+    <div id="invitation-screen" class="hidden flex flex-col items-center justify-center min-h-screen absolute inset-0 z-20 p-4 bg-[#FAF6F0] opacity-0 transition-opacity duration-1000 overflow-y-auto">
+        <div class="w-full max-w-[430px] aspect-[1/1.6] bg-[#FAF6F0] border border-[#E6DFD5] relative flex flex-col items-center justify-between p-8 md:p-10 shadow-sm rounded-sm my-4">
+            
+            <div class="text-[#D4AF37] opacity-60 text-xl mt-2">🌸 ─── 💮 ─── 🌸</div>
+
+            <div class="flex flex-col items-center text-center my-auto w-full">
+                <p class="font-serif italic text-sm md:text-base text-[#94887E] tracking-wide max-w-[280px] leading-relaxed mb-6" id="inv-top-text">
+                    Приглашаем вас на кыз узатуу нашей дочери
+                </p>
+
+                <h1 class="font-serif text-5xl md:text-6xl text-[#4A3E37] font-light tracking-wide mb-6">Аяна</h1>
+
+                <div class="text-[#D4AF37] text-[10px] mb-6">◆</div>
+
+                <p class="font-serif text-xs md:text-sm uppercase tracking-[0.2em] text-[#C0A080] font-semibold mb-8" id="inv-date-text">
+                    Среда · 26 Августа 2026
+                </p>
+
+                <!-- ТАЙМЕР -->
+                <div class="flex gap-4 md:gap-5 justify-center items-center mb-8 w-full max-w-[280px]">
+                    <div class="flex flex-col items-center">
+                        <span id="timer-days" class="font-serif text-2xl text-[#5A504A]">00</span>
+                        <span id="lbl-days" class="text-[9px] uppercase tracking-widest text-[#A3978E] mt-1">дней</span>
+                    </div>
+                    <span class="text-[#A3978E] font-serif text-lg pb-4">:</span>
+                    <div class="flex flex-col items-center">
+                        <span id="timer-hours" class="font-serif text-2xl text-[#5A504A]">00</span>
+                        <span id="lbl-hours" class="text-[9px] uppercase tracking-widest text-[#A3978E] mt-1">часов</span>
+                    </div>
+                    <span class="text-[#A3978E] font-serif text-lg pb-4">:</span>
+                    <div class="flex flex-col items-center">
+                        <span id="timer-minutes" class="font-serif text-2xl text-[#5A504A]">00</span>
+                        <span id="lbl-minutes" class="text-[9px] uppercase tracking-widest text-[#A3978E] mt-1">минут</span>
+                    </div>
+                    <span class="text-[#A3978E] font-serif text-lg pb-4">:</span>
+                    <div class="flex flex-col items-center">
+                        <span id="timer-seconds" class="font-serif text-2xl text-[#5A504A]">00</span>
+                        <span id="lbl-seconds" class="text-[9px] uppercase tracking-widest text-[#A3978E] mt-1">секунд</span>
+                    </div>
+                </div>
+
+                <p class="font-serif italic text-sm md:text-base text-[#94887E] tracking-wide max-w-[280px] leading-relaxed" id="inv-bottom-text">
+                    Подарите нашей дочери своё тёплое благословение
+                </p>
+            </div>
+            <div class="h-2"></div>
+        </div>
+    </div>
+
+    <script>
+        const langData = {
+            kg: { sealName: "Аяна", tip: "ачуу үчүн басыңыз", topText: "Сиздерди кызыбыз Аянанын кыз узатуу тоюна чакырабыз", dateText: "Шаршемби · 26-Август 2026", bottomText: "Кызыбызга өзүңүздөрдүн жылуу батаңыздарды бериңиздер", lblDays: "күн", lblHours: "саат", lblMinutes: "мүнөт", lblSeconds: "секунд" },
+            ru: { sealName: "Аяна", tip: "нажмите, чтобы открыть", topText: "Приглашаем вас на кыз узатуу нашей дочери", dateText: "Среда · 26 Августа 2026", bottomText: "Подарите нашей дочери своё тёплое благословение", lblDays: "дней", lblHours: "часов", lblMinutes: "минут", lblSeconds: "секунд" },
+            en: { sealName: "Aiana", tip: "click to open", topText: "We invite you to the Kyz Uzatuu ceremony of our daughter", dateText: "Wednesday · August 26, 2026", bottomText: "Give our daughter your warm blessing", lblDays: "days", lblHours: "hours", lblMinutes: "mins", lblSeconds: "secs" }
+        };
+
+        let countdownInterval;
+
+        function selectLang(lang) {
+            const data = langData[lang];
+            document.getElementById('seal-name').textContent = data.sealName;
+            document.getElementById('click-tip').textContent = data.tip;
+            document.getElementById('inv-top-text').textContent = data.topText;
+            document.getElementById('inv-date-text').textContent = data.dateText;
+            document.getElementById('inv-bottom-text').textContent = data.bottomText;
+            document.getElementById('lbl-days').textContent = data.lblDays;
+            document.getElementById('lbl-hours').textContent = data.lblHours;
+            document.getElementById('lbl-minutes').textContent = data.lblMinutes;
+            document.getElementById('lbl-seconds').textContent = data.lblSeconds;
+
+            const langScreen = document.getElementById('lang-screen');
+            const envScreen = document.getElementById('envelope-screen');
+            
+            langScreen.classList.add('opacity-0');
+            setTimeout(() => {
+                langScreen.classList.add('hidden');
+                envScreen.classList.remove('hidden');
+                setTimeout(() => envScreen.classList.remove('opacity-0'), 50);
+            }, 500);
+
+            initTimer();
+        }
+
+        function openEnvelope() {
+            document.querySelector('.envelope-wrapper').classList.add('open');
+            setTimeout(() => {
+                const envScreen = document.getElementById('envelope-screen');
+                const invScreen = document.getElementById('invitation-screen');
+                envScreen.classList.add('opacity-0');
+                setTimeout(() => {
+                    envScreen.classList.add('hidden');
+                    invScreen.classList.remove('hidden');
+                    setTimeout(() => invScreen.classList.remove('opacity-0'), 50);
+                }, 800);
+            }, 1200); 
+        }
+
+        function initTimer() {
+            if (countdownInterval) clearInterval(countdownInterval);
+            const targetDate = new Date('August 26, 2026 18:00:00').getTime();
+
+            countdownInterval = setInterval(() => {
+                const difference = targetDate - new Date().getTime();
+                if (difference < 0) { clearInterval(countdownInterval); return; }
+
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('timer-days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('timer-hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('timer-minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('timer-seconds').textContent = seconds.toString().padStart(2, '0');
+            }, 1000);
+        }
+
+        // Анимация лепестков сакуры
+        const canvas = document.getElementById('sakura');
+        const ctx = canvas.getContext('2d');
+        let petals = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize); resize();
+
+        class Petal {
+            constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height - canvas.height; this.r = Math.random() * 4 + 2; this.vX = Math.random() * 1 - 0.5; this.vY = Math.random() * 1 + 1; }
+            draw() {
+                if (this.y > canvas.height || this.x > canvas.width || this.x < 0) { this.x = Math.random() * canvas.width; this.y = -20; }
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI, true);
+                ctx.fillStyle = 'rgba(255, 183, 197, 0.5)'; ctx.fill();
+            }
+            update() { this.x += this.vX; this.y += this.vY; }
+        }
+        for (let i = 0; i < 35; i++) petals.push(new Petal());
+        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); petals.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animate); }
+        animate();
+    </script>
+</body>
+</html>
