@@ -8,7 +8,7 @@
         @import url('https://googleapis.com');
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Cormorant Garamond', serif; background-color: #FAF6F0; color: #5A504A; min-height: 100vh; overflow-hidden: hidden; position: relative; -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Cormorant Garamond', serif; background-color: #FAF6F0; color: #5A504A; min-height: 100vh; overflow: hidden; position: relative; -webkit-font-smoothing: antialiased; }
         .font-serif { font-family: 'Playfair Display', serif; }
         
         .screen { display: flex; flex-direction: column; align-items: center; justify-content: center; position: absolute; top: 0; left: 0; width: 100%; height: 100vh; background-color: #FAF6F0; opacity: 1; transition: opacity 0.6s ease; z-index: 20; }
@@ -39,7 +39,7 @@
         .tip-text { margin-top: 2.5rem; font-size: 1.25rem; font-style: italic; color: #A3968E; letter-spacing: 0.05em; text-align: center; }
         /* Экран 3: Карточка с приглашением */
         .card-container { display: flex; flex-direction: column; align-items: center; justify-content: space-between; width: 92%; max-width: 410px; height: 86vh; background-color: #FAF6F0; border: 1px solid #EBE5DC; padding: 2rem 1.5rem; box-shadow: 0 4px 20px rgba(165, 140, 125, 0.02); overflow-y: auto; position: relative; }
-        .inv-top { font-size: 1.2rem; font-style: italic; color: #8F8278; line-height: 1.6; margin-bottom: 1.2rem; text-align: center; }
+        .inv-top { font-size: 1.2rem; font-style: italic; color: #8F8278; line-height: 1.6; margin-bottom: 1.2rem; text-align: center; white-space: pre-line; }
         .inv-name { font-size: 3.2rem; color: #3D3530; font-weight: 300; letter-spacing: 0.01em; margin-bottom: 1rem; line-height: 1.1; text-align: center; }
         .inv-date { font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.15em; color: #BFA080; font-weight: 500; margin-bottom: 1.5rem; text-align: center; }
         
@@ -50,7 +50,7 @@
         .timer-dots { color: #C4A467; font-size: 1.2rem; padding-bottom: 14px; opacity: 0.7; }
         
         /* Кнопка 2ГИС */
-        .map-btn { display: inline-block; width: 100%; max-width: 240px; padding: 0.7rem 1.5rem; margin: 1.5rem 0; background-color: #ffffff; border: 1px solid #C4A467; color: #5A504A; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; text-decoration: none; border-radius: 1px; transition: all 0.3s ease; box-shadow: 0 2px 6px rgba(196,164,103,0.08); }
+        .map-btn { display: inline-block; width: 100%; max-width: 240px; padding: 0.7rem 1.5rem; margin: 1.5rem 0; background-color: #ffffff; border: 1px solid #C4A467; color: #5A504A; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; text-decoration: none; border-radius: 1px; transition: all 0.3s ease; box-shadow: 0 2px 6px rgba(196,164,103,0.08); text-align: center; }
         .map-btn:hover { background-color: #FAF8F4; box-shadow: 0 4px 10px rgba(196,164,103,0.15); }
         
         .inv-bottom { font-size: 1.15rem; font-style: italic; color: #8F8278; line-height: 1.6; text-align: center; margin-top: 0.5rem; }
@@ -94,10 +94,10 @@
         <div class="card-container">
             <div class="font-serif" style="color: #C4A467; opacity: 0.6; font-size: 1rem;">🌸 ─── 💮 ─── 🌸</div>
             <div style="width: 100%;">
-                <p class="inv-top" id="inv-top-text">Приглашаем вас на торжество нашей дочери</p>
+                <p class="inv-top" id="inv-top-text">Приглашаем вас на торжество нашего сына</p>
                 <h1 class="inv-name font-serif" id="inv-names">Эдильхан & Малика</h1>
                 <div class="divider-line" style="margin: 0 auto 1.5rem auto;"><span class="diamond">◆</span></div>
-                <p class="inv-date" id="inv-date-text">Шаршемби · 26-Август 2026</p>
+                <p class="inv-date" id="inv-date-text">Воскресенье · 25 Октября 2026</p>
                 
                 <!-- ТАЙМЕР -->
                 <div class="timer-box">
@@ -110,9 +110,9 @@
                     <div class="timer-item"><span id="timer-seconds" class="timer-num font-serif">00</span><span id="lbl-seconds" class="timer-lbl">секунд</span></div>
                 </div>
 
-                <!-- КНОПКА КАРТЫ 2ГИС -->
+                <!-- КНОПКА КАРТЫ 2ГИС (Исправлен ID) -->
                 <div style="text-align: center;">
-                    <a id="map-link" href="https://2gis.kg" target="_blank" class="map-btn">2ГИС карта проезда</a>
+                    <a id="map-btn" href="https://2gis.kg" target="_blank" class="map-btn">2ГИС карта проезда</a>
                 </div>
                 
                 <p class="inv-bottom" id="inv-bottom-text">Подарите нашей дочери своё тёплое благословение</p>
@@ -126,7 +126,7 @@
             kg: { 
                 sealName: "Эдильхан<br>& Малика", 
                 tip: "ачуу үчүн басыңыз", 
-                topText: "Кадырлуу коноктор! Сиздерди уулубуз Эдильхан менен келинибиз Маликанын үйлөнүү тоюна чакырабыз.\n\nТой ээлери: Нурлан - Ырыс", 
+                topText: "Кадырлуу коноктор!\nСиздерди уулубуз Эдильхан менен келинибиз Маликанын үйлөнүү тоюна чакырабыз.\n\nТой ээлери: Нурлан - Ырыс", 
                 dateText: "Жекшемби · 25-Октябрь 2026", 
                 bottomText: "Дареги: «Ырыскы» рестораны, саат 16:00", 
                 lblDays: "күн", lblHours: "саат", lblMinutes: "мүнөт", lblSeconds: "секунд",
@@ -135,7 +135,7 @@
             ru: { 
                 sealName: "Эдильхан<br>& Малика", 
                 tip: "нажмите, чтобы открыть", 
-                topText: "Дорогие гости! Приглашаем вас на үйлөнүү той (свадьбу) нашего сына Эдильхана и невестки Малики.\n\nХозяева тоя: Нурлан - Ырыс", 
+                topText: "Дорогие гости!\nПриглашаем вас на үйлөнүү той (свадьбу) нашего сына Эдильхана и невестки Малики.\n\nХозяева тоя: Нурлан - Ырыс", 
                 dateText: "Воскресенье · 25 Октября 2026", 
                 bottomText: "Ресторан «Ырыскы» · Начало в 16:00", 
                 lblDays: "дня", lblHours: "часов", lblMinutes: "минут", lblSeconds: "секунд",
@@ -144,7 +144,7 @@
             en: { 
                 sealName: "Edilkhan<br>& Malika", 
                 tip: "click to open", 
-                topText: "Dear guests! We invite you to the wedding ceremony of our son Edilkhan and daughter-in-law Malika.\n\nHosts: Nurlan - Yrys", 
+                topText: "Dear guests!\nWe invite you to the wedding ceremony of our son Edilkhan and daughter-in-law Malika.\n\nHosts: Nurlan - Yrys", 
                 dateText: "Sunday · October 25, 2026", 
                 bottomText: "Restaurant «Yrysky» · Starts at 4:00 PM", 
                 lblDays: "days", lblHours: "hours", lblMinutes: "mins", lblSeconds: "secs",
@@ -165,6 +165,8 @@
             document.getElementById('lbl-hours').textContent = data.lblHours;
             document.getElementById('lbl-minutes').textContent = data.lblMinutes;
             document.getElementById('lbl-seconds').textContent = data.lblSeconds;
+            
+            // Исправленная строка (ID теперь совпадает с разметкой во 2-й части)
             document.getElementById('map-btn').textContent = data.mapText;
 
             document.getElementById('lang-screen').classList.add('hidden');
