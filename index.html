@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Аяна — Кыз узатуу</title>
+    <title>Эдильхан & Малика — Үйлөнүү той</title>
     <style>
         @import url('https://googleapis.com');
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Cormorant Garamond', serif; background-color: #FAF6F0; color: #5A504A; min-height: 100vh; overflow: hidden; position: relative; -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Cormorant Garamond', serif; background-color: #FAF6F0; color: #5A504A; min-height: 100vh; overflow-hidden: hidden; position: relative; -webkit-font-smoothing: antialiased; }
         .font-serif { font-family: 'Playfair Display', serif; }
         
         .screen { display: flex; flex-direction: column; align-items: center; justify-content: center; position: absolute; top: 0; left: 0; width: 100%; height: 100vh; background-color: #FAF6F0; opacity: 1; transition: opacity 0.6s ease; z-index: 20; }
@@ -30,25 +30,30 @@
         .envelope-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; }
         .envelope-wrapper .flap-path { transform-origin: top center; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
         
-        .stamp-seal { position: absolute; top: 50%; left: 50%; width: 48px; height: 48px; background: radial-gradient(circle, #E5CFA3 0%, #C4A467 100%); border-radius: 50%; transform: translate(-50%, -50%); box-shadow: 0 4px 10px rgba(0,0,0,0.15); z-index: 5; transition: transform 0.5s ease, opacity 0.4s ease; display: flex; align-items: center; justify-content: center; }
-        .seal-text { font-size: 11px; color: #FAF6F0; font-style: italic; letter-spacing: 0.05em; font-family: 'Playfair Display', serif; }
+        .stamp-seal { position: absolute; top: 50%; left: 50%; width: 56px; height: 56px; background: radial-gradient(circle, #E5CFA3 0%, #C4A467 100%); border-radius: 50%; transform: translate(-50%, -50%); box-shadow: 0 4px 10px rgba(0,0,0,0.15); z-index: 5; transition: transform 0.5s ease, opacity 0.4s ease; display: flex; align-items: center; justify-content: center; text-align: center; padding: 2px; }
+        .seal-text { font-size: 9px; color: #FAF6F0; font-style: italic; font-family: 'Playfair Display', serif; line-height: 1.1; }
         
         .envelope-wrapper.open .flap-path { transform: scaleY(-1); }
         .envelope-wrapper.open .stamp-seal { transform: translate(-50%, -50%) scale(0.7); opacity: 0; }
         .envelope-wrapper.open .letter { transform: translateY(-95px); z-index: 6; }
         .tip-text { margin-top: 2.5rem; font-size: 1.25rem; font-style: italic; color: #A3968E; letter-spacing: 0.05em; text-align: center; }
         /* Экран 3: Карточка с приглашением */
-        .card-container { display: flex; flex-direction: column; align-items: center; justify-content: space-between; width: 92%; max-width: 410px; height: 84vh; background-color: #FAF6F0; border: 1px solid #EBE5DC; padding: 2.5rem 2rem; box-shadow: 0 4px 20px rgba(165, 140, 125, 0.02); overflow-y: auto; position: relative; }
-        .inv-top { font-size: 1.25rem; font-style: italic; color: #8F8278; line-height: 1.7; margin-bottom: 1.5rem; text-align: center; }
-        .inv-name { font-size: 4rem; color: #3D3530; font-weight: 300; letter-spacing: 0.02em; margin-bottom: 1.2rem; line-height: 1.1; text-align: center; }
-        .inv-date { font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.18em; color: #BFA080; font-weight: 500; margin-bottom: 2rem; text-align: center; }
+        .card-container { display: flex; flex-direction: column; align-items: center; justify-content: space-between; width: 92%; max-width: 410px; height: 86vh; background-color: #FAF6F0; border: 1px solid #EBE5DC; padding: 2rem 1.5rem; box-shadow: 0 4px 20px rgba(165, 140, 125, 0.02); overflow-y: auto; position: relative; }
+        .inv-top { font-size: 1.2rem; font-style: italic; color: #8F8278; line-height: 1.6; margin-bottom: 1.2rem; text-align: center; }
+        .inv-name { font-size: 3.2rem; color: #3D3530; font-weight: 300; letter-spacing: 0.01em; margin-bottom: 1rem; line-height: 1.1; text-align: center; }
+        .inv-date { font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.15em; color: #BFA080; font-weight: 500; margin-bottom: 1.5rem; text-align: center; }
         
-        .timer-box { display: flex; gap: 1.2rem; justify-content: center; align-items: center; margin-bottom: 2.5rem; width: 100%; }
-        .timer-item { display: flex; flex-direction: column; align-items: center; min-width: 50px; }
-        .timer-num { font-size: 1.8rem; color: #4A403A; font-weight: 400; }
-        .timer-lbl { font-size: 10px; color: #A89B90; margin-top: 6px; text-transform: lowercase; }
-        .timer-dots { color: #C4A467; font-size: 1.3rem; padding-bottom: 16px; opacity: 0.7; }
-        .inv-bottom { font-size: 1.25rem; font-style: italic; color: #8F8278; line-height: 1.7; text-align: center; }
+        .timer-box { display: flex; gap: 1rem; justify-content: center; align-items: center; margin-bottom: 2rem; width: 100%; }
+        .timer-item { display: flex; flex-direction: column; align-items: center; min-width: 45px; }
+        .timer-num { font-size: 1.6rem; color: #4A403A; font-weight: 400; }
+        .timer-lbl { font-size: 10px; color: #A89B90; margin-top: 4px; text-transform: lowercase; }
+        .timer-dots { color: #C4A467; font-size: 1.2rem; padding-bottom: 14px; opacity: 0.7; }
+        
+        /* Кнопка 2ГИС */
+        .map-btn { display: inline-block; width: 100%; max-width: 240px; padding: 0.7rem 1.5rem; margin: 1.5rem 0; background-color: #ffffff; border: 1px solid #C4A467; color: #5A504A; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; text-decoration: none; border-radius: 1px; transition: all 0.3s ease; box-shadow: 0 2px 6px rgba(196,164,103,0.08); }
+        .map-btn:hover { background-color: #FAF8F4; box-shadow: 0 4px 10px rgba(196,164,103,0.15); }
+        
+        .inv-bottom { font-size: 1.15rem; font-style: italic; color: #8F8278; line-height: 1.6; text-align: center; margin-top: 0.5rem; }
     </style>
 </head>
 <body>
@@ -79,7 +84,7 @@
                     <path d="M320 0L160 105L320 200V0Z" fill="#F4D3C9"/>
                     <path class="flap-path" d="M0 0L160 105L320 0H0Z" fill="#E5BEB3" filter="drop-shadow(0px 3px 5px rgba(0,0,0,0.06))"/>
                 </svg>
-                <div class="stamp-seal"><span class="seal-text" id="seal-name">Аяна</span></div>
+                <div class="stamp-seal"><span class="seal-text" id="seal-name">Эдильхан<br>& Малика</span></div>
             </div>
             <p class="tip-text font-serif" id="click-tip">нажмите, чтобы открыть</p>
         </div>
@@ -89,11 +94,12 @@
         <div class="card-container">
             <div class="font-serif" style="color: #C4A467; opacity: 0.6; font-size: 1rem;">🌸 ─── 💮 ─── 🌸</div>
             <div style="width: 100%;">
-                <p class="inv-top" id="inv-top-text">Приглашаем вас на кыз узатуу нашей дочери</p>
-                <h1 class="inv-name font-serif">Аяна</h1>
+                <p class="inv-top" id="inv-top-text">Приглашаем вас на торжество нашей дочери</p>
+                <h1 class="inv-name font-serif" id="inv-names">Эдильхан & Малика</h1>
                 <div class="divider-line" style="margin: 0 auto 1.5rem auto;"><span class="diamond">◆</span></div>
-                <p class="inv-date" id="inv-date-text">Среда · 26 Августа 2026</p>
+                <p class="inv-date" id="inv-date-text">Шаршемби · 26-Август 2026</p>
                 
+                <!-- ТАЙМЕР -->
                 <div class="timer-box">
                     <div class="timer-item"><span id="timer-days" class="timer-num font-serif">00</span><span id="lbl-days" class="timer-lbl">дня</span></div>
                     <span class="timer-dots font-serif">:</span>
@@ -102,6 +108,11 @@
                     <div class="timer-item"><span id="timer-minutes" class="timer-num font-serif">00</span><span id="lbl-minutes" class="timer-lbl">минут</span></div>
                     <span class="timer-dots font-serif">:</span>
                     <div class="timer-item"><span id="timer-seconds" class="timer-num font-serif">00</span><span id="lbl-seconds" class="timer-lbl">секунд</span></div>
+                </div>
+
+                <!-- КНОПКА КАРТЫ 2ГИС -->
+                <div style="text-align: center;">
+                    <a id="map-link" href="https://2gis.kg" target="_blank" class="map-btn">2ГИС карта проезда</a>
                 </div>
                 
                 <p class="inv-bottom" id="inv-bottom-text">Подарите нашей дочери своё тёплое благословение</p>
@@ -112,24 +123,49 @@
 
     <script>
         const langData = {
-            kg: { sealName: "Аяна", tip: "ачуу үчүн басыңыз", topText: "Сиздерди кызыбыз Аянанын кыз узатуу тоюна чакырабыз", dateText: "Шаршемби · 26-Август 2026", bottomText: "Кызыбызга өзүңүздөрдүн жылуу батаңыздарды бериңиздер", lblDays: "күн", lblHours: "саат", lblMinutes: "мүнөт", lblSeconds: "секунд" },
-            ru: { sealName: "Аяна", tip: "нажмите, чтобы открыть", topText: "Приглашаем вас на кыз узатуу нашей дочери", dateText: "Среда · 26 Августа 2026", bottomText: "Подарите нашей дочери своё тёплое благословение", lblDays: "дня", lblHours: "часов", lblMinutes: "минут", lblSeconds: "секунд" },
-            en: { sealName: "Aiana", tip: "click to open", topText: "We invite you to the Kyz Uzatuu ceremony of our daughter", dateText: "Wednesday · August 26, 2026", bottomText: "Give our daughter your warm blessing", lblDays: "days", lblHours: "hours", lblMinutes: "mins", lblSeconds: "secs" }
+            kg: { 
+                sealName: "Эдильхан<br>& Малика", 
+                tip: "ачуу үчүн басыңыз", 
+                topText: "Кадырлуу коноктор! Сиздерди уулубуз Эдильхан менен келинибиз Маликанын үйлөнүү тоюна чакырабыз.\n\nТой ээлери: Нурлан - Ырыс", 
+                dateText: "Жекшемби · 25-Октябрь 2026", 
+                bottomText: "Дареги: «Ырыскы» рестораны, саат 16:00", 
+                lblDays: "күн", lblHours: "саат", lblMinutes: "мүнөт", lblSeconds: "секунд",
+                mapText: "2ГИС карта аркылуу жол табуу"
+            },
+            ru: { 
+                sealName: "Эдильхан<br>& Малика", 
+                tip: "нажмите, чтобы открыть", 
+                topText: "Дорогие гости! Приглашаем вас на үйлөнүү той (свадьбу) нашего сына Эдильхана и невестки Малики.\n\nХозяева тоя: Нурлан - Ырыс", 
+                dateText: "Воскресенье · 25 Октября 2026", 
+                bottomText: "Ресторан «Ырыскы» · Начало в 16:00", 
+                lblDays: "дня", lblHours: "часов", lblMinutes: "минут", lblSeconds: "секунд",
+                mapText: "2ГИС карта проезда"
+            },
+            en: { 
+                sealName: "Edilkhan<br>& Malika", 
+                tip: "click to open", 
+                topText: "Dear guests! We invite you to the wedding ceremony of our son Edilkhan and daughter-in-law Malika.\n\nHosts: Nurlan - Yrys", 
+                dateText: "Sunday · October 25, 2026", 
+                bottomText: "Restaurant «Yrysky» · Starts at 4:00 PM", 
+                lblDays: "days", lblHours: "hours", lblMinutes: "mins", lblSeconds: "secs",
+                mapText: "Open 2GIS Map"
+            }
         };
 
         let countdownInterval;
 
         function selectLang(lang) {
             const data = langData[lang];
-            document.getElementById('seal-name').textContent = data.sealName;
+            document.getElementById('seal-name').innerHTML = data.sealName;
             document.getElementById('click-tip').textContent = data.tip;
-            document.getElementById('inv-top-text').textContent = data.topText;
+            document.getElementById('inv-top-text').innerText = data.topText;
             document.getElementById('inv-date-text').textContent = data.dateText;
             document.getElementById('inv-bottom-text').textContent = data.bottomText;
             document.getElementById('lbl-days').textContent = data.lblDays;
             document.getElementById('lbl-hours').textContent = data.lblHours;
             document.getElementById('lbl-minutes').textContent = data.lblMinutes;
             document.getElementById('lbl-seconds').textContent = data.lblSeconds;
+            document.getElementById('map-btn').textContent = data.mapText;
 
             document.getElementById('lang-screen').classList.add('hidden');
             document.getElementById('envelope-screen').classList.remove('hidden');
@@ -146,7 +182,7 @@
 
         function initTimer() {
             if (countdownInterval) clearInterval(countdownInterval);
-            const targetDate = new Date('August 26, 2026 18:00:00').getTime();
+            const targetDate = new Date('October 25, 2026 16:00:00').getTime();
 
             countdownInterval = setInterval(() => {
                 const difference = targetDate - new Date().getTime();
